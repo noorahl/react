@@ -1,12 +1,8 @@
-// src/components/MediaRow.jsx
-//const MediaRow = ({item}) => {
-const MediaRow = (props) => {
-  const {item} = props;
+const MediaRow = ({item, setItem}) => {
   return (
-    // TODO: move <tr> element in foreach from Home.jsx here
-    <tr>
+    <tr onClick={() => setItem(item)}>
       <td>
-        <img src={item.thumbnail} alt={item.title} width="100" />
+        <img src={item.thumbnail} alt={item.title} />
       </td>
       <td>{item.title}</td>
       <td>{item.description}</td>
