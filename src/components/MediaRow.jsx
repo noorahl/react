@@ -1,4 +1,5 @@
 // src/components/MediaRow.jsx
+//const MediaRow = ({item}) => {
 const MediaRow = (props) => {
   const {item} = props;
   return (
