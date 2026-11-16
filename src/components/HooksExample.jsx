@@ -1,6 +1,6 @@
 import {useState, useEffect, useRef} from 'react';
 
-function HooksExample() {
+const HooksExample = () => {
   const [count, setCount] = useState(0);
   const testElement = useRef(null);
 
@@ -12,9 +12,11 @@ function HooksExample() {
   return (
     <div ref={testElement}>
       <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>Click me</button>
+      <button id="btn" onClick={() => setCount(count + 1)}>
+        Click me
+      </button>
     </div>
   );
-}
+};
 
 export default HooksExample;

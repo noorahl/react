@@ -2,15 +2,25 @@ import {useEffect, useState} from 'react';
 import MediaRow from '../components/MediaRow';
 import {fetchData} from '../utils/fetchData';
 
-//const MEDIA_API = import.meta.env.VITE_MEDIA_API + '/media';
+const MEDIA_API = import.meta.env.VITE_MEDIA_API + '/media';
+const AUTH_API = import.meta.env.VITE_AUTH_API;
 
 const Home = () => {
+  // ensimmäisessä renderöinnissä dataa ei ole vielä haettu
+  // siksi tyhjä array
   const [mediaArray, setMediaArray] = useState([]);
 
   useEffect(() => {
     const getMedia = async () => {
-      const json = await fetchData('test.json');
-      setMediaArray(json);
+      // 1. haetaan ensin pelkkä mediadata
+      const mediaFiles = await fetchData(MEDIA_API);
+      const mediaFilesWithUsernames = await Promise.all(
+        mediaFiles.map(async (file) => {
+          const user = await fetchData(`${AUTH_API}/users/${file.user_id}`);
+          return {...file, username: user.username};
+        }),
+      );
+      setMediaArray(mediaFilesWithUsernames);
     };
     getMedia();
   }, []);
@@ -26,6 +36,7 @@ const Home = () => {
             <th>Thumbnail</th>
             <th>Title</th>
             <th>Description</th>
+            <th>Owner</th>
             <th>Created</th>
             <th>Size</th>
             <th>Type</th>
