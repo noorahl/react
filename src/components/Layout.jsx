@@ -1,4 +1,4 @@
-import {Link, Outlet} from 'react-router';
+import {NavLink, Outlet} from 'react-router';
 
 const Layout = () => {
   return (
@@ -8,16 +8,18 @@ const Layout = () => {
         <nav>
           <ul>
             <li>
-              <Link to="/">Home</Link>
+              <NavLink className="hover:bg-slate-950 flex" to="/">
+                Home
+              </NavLink>
             </li>
             <li>
-              <Link to="/profile">Profile</Link>
+              <NavLink to="/profile">Profile</NavLink>
             </li>
             <li>
-              <Link to="/upload">Upload</Link>
+              <NavLink to="/upload">Upload</NavLink>
             </li>
             <li>
-              <Link to="/demo">Demo</Link>
+              <NavLink to="/demo">Demo</NavLink>
             </li>
           </ul>
         </nav>
