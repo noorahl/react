@@ -4,6 +4,6 @@ import {defineConfig} from 'vite';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  //base: '/~noorahl/react/',
-  base: './',
+  base: '/~noorahl/web-sovelluskehitys/week5/forms/',
+  //base: './',
 });

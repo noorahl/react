@@ -1,9 +1,10 @@
 import useForm from '../hooks/formHooks';
 import {useAuthentication} from '../hooks/apiHooks';
-import {Navigate} from 'react-router';
+import {useNavigate} from 'react-router';
 
 const LoginForm = () => {
-  const postLogin = useAuthentication();
+  const postlogin = useAuthentication();
+  const navigate = useNavigate();
 
   const initValues = {
     username: '',
@@ -11,23 +12,27 @@ const LoginForm = () => {
   };
 
   const doLogin = async (formData) => {
-    console.log('Hookin palauttama form data', formData);
+    console.log('HOOKIN palauttama formdata', formData);
     // TODO: add login functionalities here
+    // use postlogin funktiota ja tee kutsu rajapintaan
     try {
-      const userInfo = await postLogin(formData);
+      const userInfo = await postlogin(formData);
       console.log(userInfo);
       localStorage.setItem('token', userInfo.token);
-      Navigate('/');
+      navigate('/');
     } catch (error) {
-      console.log('Error' + error);
+      console.log('Error', error);
     }
+
+    // ullis
+    // ull1s
   };
 
   const {handleInputChange, handleSubmit} = useForm(doLogin, initValues);
 
   return (
     <>
-      <h1>Login</h1>
+      <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="loginuser">Username</label>
