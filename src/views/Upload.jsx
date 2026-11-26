@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import useForm from '../hooks/formHooks';
 import {useFile} from '../hooks/apiHooks';
+import {useMedia} from '../hooks/apiHooks';
 
 const Upload = () => {
   const [file, setFile] = useState(null);
@@ -11,6 +12,7 @@ const Upload = () => {
   };
 
   const {postFile} = useFile();
+  const {postMedia} = useMedia();
 
   const doUpload = async (FormData) => {
     const token = localStorage.getItem('token');
@@ -18,13 +20,20 @@ const Upload = () => {
     try {
       // TODO: call postFile function (see below)
       console.log('File:', file);
-      const fileResponse = await postFile(file, token);
-      console.log('APIVASTAUS', fileResponse);
-
-      const mediaResponse = await postMedia(fileResponse, inputs, token);
-
       // TODO: call postMedia function (see below)
       console.log('FormData', FormData);
+
+      const fileResponse = await postFile(file, token);
+      console.log('APIVASTAUS koko', fileResponse);
+      console.log('APIVASTAUS data', fileResponse.fileData.data);
+
+      const mediaResponse = await postMedia(
+        fileResponse.fileData.data,
+        FormData,
+        token,
+      );
+      console.log(mediaResponse);
+
       // TODO: redirect to Home
     } catch (e) {
       console.log(e.message);
